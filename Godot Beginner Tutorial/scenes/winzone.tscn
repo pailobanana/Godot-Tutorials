@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnwrssl25jxqv"]
+
+[ext_resource type="Script" path="res://scripts/Area2D.gd" id="1_w806h"]
+[ext_resource type="AudioStream" uid="uid://dwugjtkohskrl" path="res://assets/sounds/Ass we can.mp3" id="2_mecyy"]
+[ext_resource type="AudioStream" uid="uid://c0ejnxaxd5dbh" path="res://assets/sounds/Clapping.mp3" id="3_c0qep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuku2"]
+size = Vector2(20, 59)
+
+[sub_resource type="Animation" id="Animation_w65in"]
+resource_name = "win"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinFX/clap:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WinFX/asswecan:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_t10yn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WinFX/clap:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WinFX/asswecan:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bdqbp"]
+_data = {
+"RESET": SubResource("Animation_t10yn"),
+"win": SubResource("Animation_w65in")
+}
+
+[node name="winzone" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_w806h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_tuku2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="WinFX" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bdqbp")
+}
+
+[node name="asswecan" type="AudioStreamPlayer2D" parent="WinFX"]
+stream = ExtResource("2_mecyy")
+
+[node name="clap" type="AudioStreamPlayer2D" parent="WinFX"]
+stream = ExtResource("3_c0qep")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dwugjtkohskrl"
+path="res://.godot/imported/Ass we can.mp3-529de7c539d4fb3ab545046d61ec0401.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Ass we can.mp3"
+dest_files=["res://.godot/imported/Ass we can.mp3-529de7c539d4fb3ab545046d61ec0401.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
